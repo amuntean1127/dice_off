@@ -1,0 +1,109 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous">
+    <title>Dice-Off | Roll to the top</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col justify-content-center text-center">
+          <div class="h5 text-right mr-3"><a class="btn text-dark rounded bg-info" href="/logout">Logout</a></div>
+          <h1 class="mt-2">Dice Off</h1>
+          <p>Welcome, {{ user.user_name }}! Roll the dice. Can you make it to the top of the leaderboard?</p>
+          {% if todays_high_score|length > 0 %}
+            <p class="h6 bg-warning p-3 ml-3 mr-3">
+              User {{ todays_high_score[0]['user_name'] }} has today's HIGH SCORE of <span class="h5 text-danger">{{ todays_high_score[0]['todays_high_score'] }}</span>!
+            </p>
+          {% endif %}
+
+          <hr>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1"></div>
+        <div class="col-6 d-flex justify-content-center">
+          <div>
+            <h5>{{ user.user_name }}'s Roll</h5>
+            <p class="text-center m-4 h1">{{ user.last_roll }}</p>
+            <form class="mx-automb-5" action="/score/insert" method="POST">
+              <button type="submit" class="btn-info rounded-bottom-lg text-dark p-3">Roll Dice</button>
+              <label class="ml-2" for="dice-sides">Dice: </label>
+              <select name="sides">
+                {% if user.last_roll_sides == 6 %}
+                  <option value="6" selected>6-sided</option>
+                  <option value="13">13-sided</option>
+                  <option value="20">20-sided</option>
+                {% elif user.last_roll_sides == 13 %}
+                  <option value="6">6-sided</option>
+                  <option value="13" selected>13-sided</option>
+                  <option value="20">20-sided</option>
+                {% else %}
+                  <option value="6">6-sided</option>
+                  <option value="13">13-sided</option>
+                  <option value="20" selected>20-sided</option>
+                {% endif %}
+              </select>
+            </form>
+            <hr>
+            <div class="border border-dark pr-5 p-3">
+              <h5>User Stats: {{ user.user_name }}</h5>
+              <p class="h6">Your high score: <span class="h4">{{ user.high_score }}</span></p>
+              <p><span class="h6">Your rolls:</span>
+                {% for score in user.scores %}
+                  {% if score == 6 or score == 13 or score == 20 %}
+                    <span class="h5 text-info">{{ score }}</span>,
+                  {% else %}
+                    {{ score }},
+                  {% endif %}
+                {% endfor %}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 justify-content-center">
+          <h5>Leaderboard</h5>
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th class="col">Rank</th>
+                <th class="col">Username</th>
+                <th class="col text-nowrap">High Score</th>
+              </tr>
+            </thead>
+            {% for score in high_scores %}
+              {% if loop.index % 2 == 0 %}
+                <tr class="bg-info">
+                  <td>{{ loop.index }}</td>
+                  <td>{{ score['user_name'] }}</td>
+                  <td class="text-right">{{ score['high_score'] }}</td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td>{{ loop.index }}</td>
+                  <td>{{ score['user_name'] }}</td>
+                  <td class="text-right">{{ score['high_score'] }}</td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </table>
+        </div>
+        <div class="col-1"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col">
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"></script>
+  </body>
+</html>
