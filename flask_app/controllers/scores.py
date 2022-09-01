@@ -5,6 +5,7 @@ from flask_app.models.score import Score
 import random
 
 @app.route('/')
+@app.route('/game')
 def index():
   if 'id' not in session:
     return redirect('/login')
@@ -22,4 +23,4 @@ def roll_dice():
     data = { 'user_id': session['id'], 'score_value': score_value, 'dice_sides': dice_sides }
 
     Score.insert_score(data)
-    return redirect('/')
+    return redirect('/game')

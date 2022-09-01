@@ -18,7 +18,7 @@ def insert_registration():
         return redirect('/login')
     data['password'] = bcrypt.generate_password_hash(data['password'])
     User.insert_user(data)
-    return redirect('/')
+    return redirect('/game')
 
 @app.route("/login")
 def register_login():
@@ -35,7 +35,7 @@ def login():
       flash("Invalid Username/Password")
       return redirect('/login')
     User.to_session(user)
-    return redirect('/')
+    return redirect('/game')
 
 @app.route('/logout')
 def logout():
