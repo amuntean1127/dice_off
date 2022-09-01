@@ -35,17 +35,17 @@
               <label class="ml-2" for="dice-sides">Dice: </label>
               <select name="sides">
                 {% if user.last_roll_sides == 6 %}
-                  <option value="6" selected>6-sided</option>
-                  <option value="13">13-sided</option>
-                  <option value="20">20-sided</option>
+                  <option value="six" selected>6-sided</option>
+                  <option value="thirteen">13-sided</option>
+                  <option value="twenty">20-sided</option>
                 {% elif user.last_roll_sides == 13 %}
-                  <option value="6">6-sided</option>
-                  <option value="13" selected>13-sided</option>
-                  <option value="20">20-sided</option>
+                  <option value="six">6-sided</option>
+                  <option value="thirteen" selected>13-sided</option>
+                  <option value="twenty">20-sided</option>
                 {% else %}
-                  <option value="6">6-sided</option>
-                  <option value="13">13-sided</option>
-                  <option value="20" selected>20-sided</option>
+                  <option value="six">6-sided</option>
+                  <option value="thirteen">13-sided</option>
+                  <option value="twenty" selected>20-sided</option>
                 {% endif %}
               </select>
             </form>

@@ -39,7 +39,7 @@ class Score:
     WHERE CURDATE() = DATE(scores.created_at)
     GROUP BY users.id
     ORDER BY todays_high_score DESC
-    LIMIT 1
+    LIMIT 1;
     """
     result = connectToMySQL("mydb").query_db(query)
 
